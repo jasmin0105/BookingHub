@@ -5,12 +5,14 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from hotels.views import HotelViewSet
+from tours.views import TourViewSet
 from restaurants.views import RestaurantViewSet
 from events.views import EventViewSet
 from users.views import RegisterView, ProfileView, EmailLoginView
 from reviews.views import ReviewViewSet
 from wishlist.views import WishlistViewSet
 from core.views import AdminStatsView, GlobalSearchView
+from core.external_api import geocode_address
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 router = DefaultRouter()
@@ -18,6 +20,7 @@ router.register(r'hotels', HotelViewSet)
 router.register(r'restaurants', RestaurantViewSet)
 router.register(r'events', EventViewSet)
 router.register(r'reviews', ReviewViewSet, basename='review')
+router.register(r'tours', TourViewSet)
 router.register(r'wishlist', WishlistViewSet, basename='wishlist')
 
 urlpatterns = [
@@ -31,5 +34,6 @@ urlpatterns = [
     path('api/auth/refresh/', TokenRefreshView.as_view()),
     path('api/auth/profile/', ProfileView.as_view()),
     path('api/stats/', AdminStatsView.as_view()),
+    path('api/geocode/', geocode_address),
     path('api/search/', GlobalSearchView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

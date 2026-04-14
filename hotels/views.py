@@ -1,3 +1,5 @@
+from decimal import Decimal
+from decimal import Decimal
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -32,8 +34,8 @@ class HotelViewSet(viewsets.ModelViewSet):
         similar = Hotel.objects.filter(city=hotel.city).exclude(id=hotel.id)[:4]
         if similar.count() < 2:
             similar = Hotel.objects.filter(
-                price_per_night__gte=hotel.price_per_night * 0.5,
-                price_per_night__lte=hotel.price_per_night * 1.5,
+                price_per_night__gte=hotel.price_per_night * Decimal("0.5"),
+                price_per_night__lte=hotel.price_per_night * Decimal("1.5"),
             ).exclude(id=hotel.id)[:4]
         return Response(HotelSerializer(similar, many=True).data)
 

@@ -1,3 +1,14 @@
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn='https://examplePublicKey@o0.ingest.sentry.io/0',
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+    send_default_pii=True,
+    environment='development',
+)
 from pathlib import Path
 from datetime import timedelta
 
@@ -19,6 +30,7 @@ INSTALLED_APPS = [
     'reviews', 
     'django.contrib.staticfiles',
     'wishlist',
+    'tours',
     # Third party
     'rest_framework',
     'corsheaders',
@@ -61,10 +73,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookinghub.wsgi.application'
 
+import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'bookinghub_db'),
+        'USER': os.environ.get('DB_USER', 'zasmin'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -114,3 +131,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bookinghub.notify@gmail.com'
 EMAIL_HOST_PASSWORD = 'your-app-password'
 DEFAULT_FROM_EMAIL = 'BookingHub <bookinghub.notify@gmail.com>'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'bookinghub-cache',
+    }
+}
+CACHE_TTL = 60 * 15
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
