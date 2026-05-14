@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wishlist',
     'tours',
+    'nomad',
     # Third party
     'rest_framework',
     'corsheaders',
