@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/geocode/', geocode_address),
     path('api/search/', GlobalSearchView.as_view()),
     path('api/nomad/', include('nomad.urls')),
+    path('api/guides/', include('guides.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # Nomad Experience
 from django.urls import path, include

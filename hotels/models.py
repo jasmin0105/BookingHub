@@ -15,7 +15,7 @@ class Hotel(models.Model):
     city            = models.CharField(max_length=100)
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     rating          = models.FloatField(default=0)
-    image           = models.ImageField(upload_to='hotels/', blank=True, null=True)
+    image           = models.URLField(blank=True, null=True)
     available_rooms = models.IntegerField(default=1)
     created_at      = models.DateTimeField(auto_now_add=True)
 

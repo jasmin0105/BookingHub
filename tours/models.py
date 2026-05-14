@@ -18,7 +18,7 @@ class Tour(models.Model):
     max_people  = models.PositiveIntegerField(default=10)
     difficulty  = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default='easy')
     
-    image       = models.ImageField(upload_to='tours/', null=True, blank=True)
+    image       = models.URLField(null=True, blank=True)
     
     image_url   = models.URLField(max_length=500, null=True, blank=True)
     

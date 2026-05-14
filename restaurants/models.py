@@ -14,7 +14,7 @@ class Restaurant(models.Model):
     city         = models.CharField(max_length=100)
     cuisine_type = models.CharField(max_length=100, blank=True)
     rating       = models.FloatField(default=0)
-    image        = models.ImageField(upload_to='restaurants/', blank=True, null=True)
+    image        = models.URLField(blank=True, null=True)
     created_at   = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

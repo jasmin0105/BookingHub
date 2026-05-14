@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'wishlist',
     'tours',
     'nomad',
+    'guides',
     # Third party
     'rest_framework',
     'corsheaders',
